@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f9f9f9",
+                    "primary-container": "#d32f2f",
+                    "on-tertiary-fixed": "#261a00",
+                    "primary-fixed-dim": "#ffb3ac",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#fff2f0",
+                    "inverse-primary": "#ffb3ac",
+                    "secondary-container": "#54a0fe",
+                    "outline-variant": "#e4beba",
+                    "tertiary-container": "#8f6a00",
+                    "tertiary-fixed": "#ffdfa0",
+                    "on-primary-fixed": "#410003",
+                    "surface-container": "#eeeeee",
+                    "tertiary": "#715300",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1a1c1c",
+                    "surface-variant": "#e2e2e2",
+                    "surface-tint": "#ba1a20",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#5b403d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#005faf",
+                    "surface-dim": "#dadada",
+                    "surface-container-highest": "#e2e2e2",
+                    "surface-container-low": "#f3f3f4",
+                    "surface": "#f9f9f9",
+                    "primary": "#af101a",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#930010",
+                    "secondary-fixed": "#d4e3ff",
+                    "primary-fixed": "#ffdad6",
+                    "surface-container-high": "#e8e8e8",
+                    "on-secondary-fixed-variant": "#004786",
+                    "tertiary-fixed-dim": "#f8bd2a",
+                    "on-background": "#1a1c1c",
+                    "on-secondary-container": "#003567",
+                    "inverse-on-surface": "#f0f1f1",
+                    "outline": "#8f6f6c",
+                    "inverse-surface": "#2f3131",
+                    "on-tertiary-container": "#fff3e3",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9f9",
+                    "secondary-fixed-dim": "#a5c8ff",
+                    "on-secondary-fixed": "#001c3a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "container-margin": "20px",
+                    "stack-sm": "8px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "label-bold": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "30px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-bold": ["14px", {"lineHeight": "20px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .bento-tall {
+            grid-row: span 2;
+        }
+        .video-gradient {
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+        }
+        .active-pill {
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 4px;
+            background-color: #f8bd2a; /* Tertiary Fixed Dim / Yellow */
+            border-radius: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface border-b-2 border-surface-variant flex items-center justify-between px-container-margin py-stack-sm">
+<div class="flex items-center gap-stack-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young drum corps member wearing a sharp red and white uniform with a golden eagle crest. The lighting is dramatic and cinematic, highlighting the discipline and pride in the subject's expression. The background is a slightly blurred rehearsal field under a clear blue sky, maintaining a high-performance, athletic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN4TwIacr48fvt9uSYbLYZeWfqDGbpYagJnandq7CD3RcmGr-sm-niGky5BY9gqaGPB5kNJZYkac-GfyryHY5yJXfMy0cgY3iAqwC2G2D5iJkltcAe5uL5WwXrRckseTPBBALL-ZI4fF-iky_JrNfL1wCRqAKWudrhuRwJ6YUtBvJxXLLDWU30s_FRY16Ph5qoa__MlpfJZKWGZ_ONJ2_OJs1ehC3OC1v-WEOvEujb2HHO8ygKB9AJdnGpoQXKqkcv14W_ln9R9iQ"/>
+</div>
+<h1 class="font-display-lg text-headline-lg-mobile font-black text-primary tracking-tighter">GOLDEN EAGLES</h1>
+</div>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high p-unit transition-colors rounded-full">
+            notifications
+        </button>
+</header>
+<main class="px-container-margin py-stack-lg">
+<!-- Header Section -->
+<div class="mb-stack-lg flex justify-between items-end">
+<div>
+<span class="bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-bold text-label-sm px-stack-sm py-1 rounded-sm uppercase tracking-wider">Gallery</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mt-unit text-on-surface">Media Hub</h2>
+</div>
+<div class="flex gap-2">
+<button class="material-symbols-outlined bg-surface-container-high p-2 rounded-lg hover:bg-surface-variant transition-all">filter_list</button>
+<button class="material-symbols-outlined bg-surface-container-high p-2 rounded-lg hover:bg-surface-variant transition-all">search</button>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-stack-sm overflow-x-auto pb-stack-md no-scrollbar">
+<button class="bg-primary text-on-primary px-stack-md py-stack-sm rounded-full font-label-bold text-label-sm whitespace-nowrap">All Media</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-stack-md py-stack-sm rounded-full font-label-bold text-label-sm whitespace-nowrap">Performances</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-stack-md py-stack-sm rounded-full font-label-bold text-label-sm whitespace-nowrap">Behind the Scenes</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-stack-md py-stack-sm rounded-full font-label-bold text-label-sm whitespace-nowrap">Rehearsals</button>
+</div>
+<!-- Bento Grid Gallery -->
+<div class="gallery-grid">
+<!-- Large Featured Item -->
+<div class="relative rounded-lg overflow-hidden border border-surface-variant aspect-square bento-tall group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A dynamic, wide-angle shot of a drum corps brass line in mid-performance on a lush green field. The sun is setting, casting long dramatic shadows and a warm golden glow over the polished silver instruments and vibrant red uniforms. The composition is sharp and high-contrast, capturing the synchronized energy and power of the Golden Eagles ensemble." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUE2SaslSszxqff3OOgarUWP2Iym03GCCXghUudIEZg6ymJsoN14PvZWKUDxPDClsNFXqmOt_tNyQiRsWTcAKra4yjKn4ArKzkzp1MY8oDeQMK_5urS7NfDLv-_xagkWjQcsIXjctHgPRsFFTDnTLCtvoRwqo45j-FH6D8zLEx9Ge0sJX0KS78i3LXp7ppe90rNaFemyPOMSsV6BPshkWmZx9VsWrW7-dKKCSs8CbIpX2oDoFTb85v1pdY55-GaLIBbC3sVeTBIDk"/>
+<div class="absolute inset-0 video-gradient flex flex-col justify-end p-stack-md">
+<span class="text-tertiary-fixed-dim font-label-bold text-label-sm mb-1 uppercase">Featured</span>
+<p class="text-white font-label-bold text-body-md leading-tight">DCI Finals Highlight Reel 2023</p>
+</div>
+<div class="absolute top-2 right-2 bg-primary text-white p-1 rounded-sm">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+</div>
+</div>
+<!-- Standard Items -->
+<div class="relative rounded-lg overflow-hidden border border-surface-variant aspect-square group border-l-4 border-l-primary">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A close-up action shot of a snare drummer's hands in high-speed motion, with drumsticks blurred to convey intensity. The lighting is high-key and modern, emphasizing the textures of the drum head and the crisp white gloves. The overall mood is focused and disciplined, reflecting the elite technical precision of the percussion section." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB1BC3sWQfJhgLPqPEk0qCqmEgTeten_B7O15ZZziovMDBFdzR6scMDi-WDW6JaM_6sM0lj99o8br1JyNw5OH0o24rg9DprY3tP-iQpdelkhWhZAbdh3V-awV9L8Tewhdq58vS6NaYjPTdrsn2yrfu4a8L7PpoGw5IybiM3lajk18rqd4_ILlKQ-X4wAAfGyc9QCrY5Wyq1rXoiPkwx_yC5glKUQUryLz9AkTzPua4Y4A1hOywYySAq2f5lLA2Z2vOrQ9Wrvn8PQY"/>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all"></div>
+<div class="absolute bottom-2 left-2">
+<span class="bg-secondary text-white text-[10px] font-black px-1.5 py-0.5 rounded-sm uppercase">On Time</span>
+</div>
+</div>
+<div class="relative rounded-lg overflow-hidden border border-surface-variant aspect-square group border-l-4 border-l-tertiary-fixed-dim">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="An artistic black and white photograph of brass instruments lined up on the sideline during a break. The focus is sharp on the nearest trumpet, showing the reflection of the stadium lights. The aesthetic is gritty yet elegant, capturing the hard work and preparation behind the glamour of the performance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCalMMG2Vk7s5uNiLy3IeheOhT2QGZsm8ag9QXP2_KZeFrpp8j0kCtMmUjPCtfCq5E3LC9E_VfF2ZYef8LQcYC9Cf1uWE19mhYttMZos6_jl7D6SlMfOKJpmbkVTUO5I-mq7_-TpSKkkmJDArG3yOqWB4917w082h59e0oiDXpN8bXkPltYs0Y1tMdRYhOzI0aV4hjSVp4tVlYzNasTpxdzqaZjt5se4HPFRRnMpSrLqNIY56CfBW2DGhAlY38xyYUFXAuUWe8E4mI"/>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-black/40 backdrop-blur-sm">
+<p class="text-white text-[10px] font-label-bold truncate">Brass Warmup - Texas Regional</p>
+</div>
+</div>
+<div class="relative rounded-lg overflow-hidden border border-surface-variant aspect-square group border-l-4 border-l-primary">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A vibrant color guard member performing a high toss with a bright yellow silk flag against a deep blue sky. The flag is perfectly caught in motion, creating a beautiful geometric shape. The lighting is brilliant and clear, emphasizing the bold primary colors and the athletic grace of the performer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8qn8r4Zm2qWBJIYqEuSzU7-5rle7jlgHWjIB6QKKqFlkw9GWq358S8kEOCYa6O3zBJi4y1h0CyqloJOsvCm8VcACZzH6VXd4F1jIf8Iso_5wxJOZ1AmqgqyyNuVlra2p_P5ylB71mFL4PO4Sa2blgkBPAuyliZB9uAaf9ueFCxX65bnIFxTx0pAp2xkg96aAfCvCSI7ybVnLGMKldaDlKFSK5gIprWqtSafJVCjvc_jYWK-QWSCZmwNy2X_fWg09xJydqfpmhviI"/>
+<div class="absolute top-2 right-2">
+<span class="material-symbols-outlined text-white drop-shadow-md">image</span>
+</div>
+</div>
+<div class="relative rounded-lg overflow-hidden border border-surface-variant aspect-square group border-l-4 border-l-secondary">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A candid shot of corps members laughing together in the equipment truck, surrounded by uniforms and cases. The lighting is warm and intimate, creating a sense of camaraderie and family. This lifestyle photograph captures the personal side of the drum corps experience, highlighting the bonds formed through shared discipline." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2Bw93EzZLAZIsUv4NlBCD8McOkC2SOdErVhd9XGENdndZ7T5ClSDdboRL3WVbHu97eZHqTUceeoOmQFzadSJF_tTV_TOfgm7_RxqJNn-7R2uxu1dx7LcON7gzBcDwrKN0-UsfXu8R4LXZUu4elqYzSLfG8lg71JWIMlJVABxdZL2qu91cs6-l9ybfjfBwDOYK9MW1zajbayMLoaXUeO-eYhE72-M_XOQS3Sy4pzWuYdw6t25huzA-5JqTmqOyZc_1FUr-ojFguqY"/>
+<div class="absolute bottom-2 left-2">
+<span class="bg-tertiary-fixed-dim text-on-tertiary-fixed text-[10px] font-black px-1.5 py-0.5 rounded-sm uppercase">Awarded</span>
+</div>
+</div>
+<div class="relative rounded-lg overflow-hidden border border-surface-variant aspect-square group">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A low-angle dramatic shot of the drum major standing on the podium, baton raised, with stadium floodlights creating a powerful backlight. The silhouette is sharp and authoritative, symbolizing leadership and command. The color palette is dominated by deep blues and bright whites, creating a professional, high-stakes atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGAlc9kksz9t9Y5aGH0Dxg-KNuncuqsiRW3jrHzrg-DgSJ6kga03mPO13e643OyJ8rjHI7SlL7cT6irIgBfzt2Sl9sKJpifGxaA6DU-Ocg-lmxzz5sifkGpnoSqrivKs4bfg_Xh9pMw2P80UNyGPLWgMgtb7W7XiGC82SvUbW8hit8kTRrht9u5VBvB4vqV769pJPQIoUB5YuIhNEWnmnCF-ffFxzR7JzcnmlY04gmsQAaMz6S3TUarPVoWPewiPh_Ct8FRL5KuNE"/>
+<div class="absolute top-2 right-2 bg-primary text-white p-1 rounded-sm">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+</div>
+</div>
+<div class="relative rounded-lg overflow-hidden border border-surface-variant aspect-square group border-l-4 border-l-primary">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-contrast macro shot of a Golden Eagles uniform patch, showing the intricate embroidery of the eagle and the rich texture of the red fabric. The lighting is sharp and detailed, emphasizing the quality and tradition of the organization. This image serves as a symbol of identity and pride within the corps." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6OCtAqqf5Rww6uERNTNdO7glGcyXyKpN77fZLa08-3ktN_todJtScVA898yGYPz-NMRPZHeLwxWe2yAzModcSWc2V1i--aPxDRTPDu1DyUgEKO-ir3EXKqmoIO4GO80PJDwaloB3pIW0q6bvQuW-mBfeY4b5zyjuevSm2PtBPoddqvj0xytQejb7MZ4ak-0A-8QhVPDeQFropoX7_UHMvC6I6QozJdPBZP-W6bBt-mDOnEkVC4lCxSmoROFQj7IeoP39Z6YCITh4"/>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-stack-lg text-center">
+<button class="border-2 border-secondary text-secondary font-label-bold text-body-md px-stack-lg py-stack-sm rounded-sm active:scale-95 transition-all">
+                VIEW MORE MEDIA
+            </button>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-20 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-[2px_2px_0px_0px_rgba(248,189,42,1)] flex items-center justify-center active:translate-y-0.5 active:shadow-none transition-all z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_a_photo</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 h-16 bg-surface border-t-2 border-surface-variant flex justify-around items-center px-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all px-2 py-1 rounded" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all px-2 py-1 rounded" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm">Announce</span>
+</a>
+<a class="relative flex flex-col items-center justify-center text-primary font-label-bold hover:bg-primary-fixed-dim/10 transition-all px-2 py-1 rounded" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">collections</span>
+<span class="font-label-sm text-label-sm">Gallery</span>
+<div class="active-pill"></div>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all px-2 py-1 rounded" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm">Finance</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all px-2 py-1 rounded" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm">AI Hub</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for gallery items
+        document.querySelectorAll('.gallery-grid > div').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.add('scale-95');
+                setTimeout(() => {
+                    item.classList.remove('scale-95');
+                }, 150);
+            });
+        });
+
+        // FAB interaction
+        const fab = document.querySelector('button.fixed');
+        fab.addEventListener('click', () => {
+            const ripple = document.createElement('div');
+            ripple.className = 'absolute inset-0 bg-white/20 rounded-full animate-ping';
+            fab.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        });
+    </script>
+</body></html>

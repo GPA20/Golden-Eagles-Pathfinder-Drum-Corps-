@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Golden Eagles Pathfinder- Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&display=swap" rel="stylesheet"/>
+
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "primary-container": "#d32f2f",
+                        "on-tertiary-fixed": "#261a00",
+                        "primary-fixed-dim": "#ffb3ac",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#fff2f0",
+                        "inverse-primary": "#ffb3ac",
+                        "secondary-container": "#54a0fe",
+                        "outline-variant": "#e4beba",
+                        "tertiary-container": "#8f6a00",
+                        "tertiary-fixed": "#ffdfa0",
+                        "on-primary-fixed": "#410003",
+                        "surface-container": "#eeeeee",
+                        "tertiary": "#715300",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1a1c1c",
+                        "surface-variant": "#e2e2e2",
+                        "surface-tint": "#ba1a20",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#5b403d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#005faf",
+                        "surface-dim": "#dadada",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-low": "#f3f3f4",
+                        "surface": "#f9f9f9",
+                        "primary": "#af101a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#930010",
+                        "secondary-fixed": "#d4e3ff",
+                        "primary-fixed": "#ffdad6",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed-variant": "#004786",
+                        "tertiary-fixed-dim": "#f8bd2a",
+                        "on-background": "#1a1c1c",
+                        "on-secondary-container": "#003567",
+                        "inverse-on-surface": "#f0f1f1",
+                        "outline": "#8f6f6c",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#fff3e3",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9f9",
+                        "secondary-fixed-dim": "#a5c8ff",
+                        "on-secondary-fixed": "#001c3a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "container-margin": "20px",
+                        "stack-sm": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "label-bold": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "30px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-bold": ["14px", {"lineHeight": "20px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hard-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(175, 16, 26, 0.15);
+        }
+        .role-selected {
+            border: 4px solid #f8bd2a !important;
+        }
+        body {
+            background-color: #F5F5F5;
+            color: #1a1c1c;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased font-body-md text-body-md overflow-x-hidden">
+<!-- Background Atmospheric Effect -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary opacity-5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary opacity-5 rounded-full blur-3xl"></div>
+</div>
+<!-- Main Auth Canvas -->
+<main class="relative z-10 min-h-screen flex flex-col items-center justify-center px-container-margin py-stack-lg">
+<!-- Brand Identity Section -->
+<div class="w-full max-w-md text-center mb-stack-lg">
+<div class="flex justify-center mb-stack-md">
+<!-- Logo Placeholder -->
+<div class="w-24 h-24 bg-primary flex items-center justify-center hard-shadow transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+<span class="material-symbols-outlined text-white text-[48px]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+</div>
+<h1 class="font-display-lg text-headline-lg-mobile text-primary tracking-tighter uppercase mb-1">GOLDEN EAGLES</h1>
+<p class="font-label-bold text-label-sm text-on-surface-variant tracking-[0.2em] uppercase">Drum Corps International • Pathfinders</p>
+</div>
+<!-- Login Card -->
+<div class="w-full max-w-md bg-white border border-surface-variant hard-shadow p-stack-lg flex flex-col gap-stack-md">
+<div class="mb-stack-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Corps Portal</h2>
+<p class="text-on-surface-variant text-label-sm">Select your deployment role to access the field ops.</p>
+</div>
+<!-- Role Selection Grid -->
+<div class="flex flex-col gap-stack-sm" id="role-selector">
+<button class="role-btn w-full flex items-center justify-between p-stack-md border-2 border-surface-variant bg-surface-container-low hover:bg-surface-container transition-all text-left" onclick="selectRole(this, 'director')" type="button">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-secondary">stars</span>
+<span class="font-label-bold text-on-surface-variant uppercase">Director</span>
+</div>
+<span class="text-secondary font-label-sm">Command</span>
+</button>
+<button class="role-btn w-full flex items-center justify-between p-stack-md border-2 border-surface-variant bg-surface-container-low hover:bg-surface-container transition-all text-left" onclick="selectRole(this, 'instructor')" type="button">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-secondary">school</span>
+<span class="font-label-bold text-on-surface-variant uppercase">Instructor</span>
+</div>
+<span class="text-secondary font-label-sm">Educational</span>
+</button>
+<button class="role-btn w-full flex flex-col gap-stack-sm p-stack-md border-2 border-surface-variant bg-surface-container-low hover:bg-surface-container transition-all text-left" id="instrumentalist-btn" onclick="selectRole(this, 'instrumentalist')" type="button">
+<div class="flex items-center justify-between w-full">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-secondary">music_note</span>
+<span class="font-label-bold text-on-surface-variant uppercase">Instrumentalist</span>
+</div>
+<span class="text-secondary font-label-sm">Corps Member</span>
+</div>
+<!-- Nested Selection (Only visible when active) -->
+<div class="hidden mt-stack-sm w-full" id="instrument-dropdown">
+<label class="block text-[10px] font-bold text-secondary tracking-widest mb-1 uppercase" for="instrument">Select Section</label>
+<select class="w-full bg-white border-2 border-secondary p-2 font-body-md text-on-surface focus:ring-0 focus:border-primary outline-none" id="instrument">
+<option value="">-- Select Instrument --</option>
+<optgroup label="Brass & Woodwinds">
+<option>Trumpet</option>
+<option>Alto Horn</option>
+<option>Trombone</option>
+<option>Cornet</option>
+<option>Alto Sax</option>
+<option>Soprano Sax</option>
+<option>Tenor Sax</option>
+<option>Flute</option>
+<option>Contrabass</option>
+<option>Euphonium</option>
+<option>Tuba (Contra)</option>
+<option>Other</option>
+</optgroup>
+<optgroup label="Percussion">
+<option>Snare Drum</option>
+<option>Tenor Drums</option>
+<option>Bass Drum</option>
+<option>Front Ensemble</option>
+</optgroup>
+<optgroup label="Visual">
+<option>Color Guard</option>
+<option>Drum Major</option>
+</optgroup>
+</select>
+</div>
+</button>
+</div>
+<!-- Credentials Form -->
+<form class="flex flex-col gap-stack-sm mt-stack-sm">
+<div class="relative">
+<input class="w-full p-stack-md border border-surface-variant bg-surface-bright focus:border-secondary focus:ring-0 placeholder:text-on-surface-variant/40 font-body-md uppercase tracking-wider" placeholder="MEMBER ID / EMAIL" type="text" required/>
+</div>
+<div class="relative">
+<input class="w-full p-stack-md border border-surface-variant bg-surface-bright focus:border-secondary focus:ring-0 placeholder:text-on-surface-variant/40 font-body-md uppercase tracking-wider" placeholder="ACCESS CODE" type="password" required/>
+</div>
+<div class="flex items-center justify-between mt-stack-sm">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 text-primary border-surface-variant rounded-sm focus:ring-0" type="checkbox"/>
+<span class="text-label-sm text-on-surface-variant font-medium">Remember Device</span>
+</label>
+<a class="text-label-sm text-secondary font-label-bold uppercase hover:underline" href="#">Forgot Code?</a>
+</div>
+<button class="w-full mt-stack-md bg-primary text-white font-headline-md py-4 px-stack-lg uppercase tracking-widest hard-shadow active:bg-primary-container active:scale-95 transition-all" type="submit"><a href="dashboard_golden_eagles.html">
+                    Initialize Deployment
+          </a> </button>
+</form>
+</div>
+<!-- Secondary Navigation -->
+<footer class="mt-stack-lg flex flex-wrap justify-center gap-stack-md text-on-surface-variant opacity-60">
+<a class="text-label-sm font-label-bold uppercase hover:opacity-100" href="#">Public Gallery</a>
+<span class="text-label-sm">•</span>
+<a class="text-label-sm font-label-bold uppercase hover:opacity-100" href="#">Corps History</a>
+<span class="text-label-sm">•</span>
+<a class="text-label-sm font-label-bold uppercase hover:opacity-100" href="#">Schedule</a>
+</footer>
+<!-- Hero Graphic Background -->
+<div class="absolute bottom-0 left-0 w-full opacity-10 pointer-events-none select-none overflow-hidden h-64">
+<div class="flex whitespace-nowrap animate-marquee">
+<span class="text-[120px] font-black text-secondary leading-none pr-stack-lg">PRECISION</span>
+<span class="text-[120px] font-black text-primary leading-none pr-stack-lg">DISCIPLINE</span>
+<span class="text-[120px] font-black text-secondary leading-none pr-stack-lg">HONOR</span>
+<span class="text-[120px] font-black text-primary leading-none pr-stack-lg">EXCELLENCE</span>
+</div>
+</div>
+</main>
+<script>
+        function selectRole(element, role) {
+            // Remove selection from all buttons
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.classList.remove('role-selected', 'bg-secondary/10');
+                btn.classList.add('bg-surface-container-low');
+            });
+
+            // Add selection to clicked button
+            element.classList.add('role-selected', 'bg-secondary/10');
+            element.classList.remove('bg-surface-container-low');
+
+            // Handle the specific instrument dropdown
+            const instrumentDropdown = document.getElementById('instrument-dropdown');
+            if (role === 'instrumentalist') {
+                instrumentDropdown.classList.remove('hidden');
+                // Use a slight timeout to trigger potential transition
+                setTimeout(() => instrumentDropdown.classList.add('block'), 10);
+            } else {
+                instrumentDropdown.classList.add('hidden');
+                instrumentDropdown.classList.remove('block');
+            }
+        }
+
+        // Horizontal Marquee Animation using JS for better control if needed
+        const marqueeElements = document.querySelector('.animate-marquee');
+        if (marqueeElements) {
+            let offset = 0;
+            function step() {
+                offset -= 1;
+                if (offset < -2000) offset = 0;
+                marqueeElements.style.transform = `translateX(${offset}px)`;
+                requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+    </script>
+<style>
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23005faf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+    </style>
+</body></html>

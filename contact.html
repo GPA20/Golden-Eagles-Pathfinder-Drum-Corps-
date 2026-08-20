@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+     <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Contact</title>
+            <link rel="icon"type="image/png" href="ll.png">
+        </head>
+  
+    
+        <nav class="navbar">
+        <ul class="nav-links">
+<li><a href ="1.html" >HOME</a>
+        <li><a href="about.html">ABOUT</a>
+            <li><a href="gallery.html">GALLERY</a>
+                <li><a href="contact.html" class="active">CONTACT</a></li>
+        </ul>
+        <a href="Ai2.html" class="navlogo"><img src="gelogo1.jpg" alt="GE logo"></a>
+</nav>
+    <body>
+        <section class="contact-section">
+        <h2>CONTACT US</h2>
+        <div class="contact-details">
+        <p>ADVENTIST YOUTH MINISTRIES</p>
+       <p> ACCRA NEW TOWN</p>
+      <p> P.O.Box NT280 Accra,Ghana</p>
+        <p>goldeneaglespfclub@gmail.com</p>
+        <p>GOLDEN EAGLES PF CLUB</p>
+       <!--Social icons row-->
+       <div class="social-links-container">
+        <a href="https://www.facebook.com/GoldenEaglesPFClub" target="_blank" class="social-link"><img src="facebook.png" alt="Facebook"></a>
+        <a href="https://www.instagram.com/goldeneaglespfclub/" target="_blank" class="social-link"><img src="ign.png" alt="Instagram"></a>
+        <a href="https://www.youtube.com/@goldeneaglespfclub" target="_blank" class="social-link"><img src="youtube2.png" alt="YouTube"></a>
+        <a href="https://twitter.com/GoldenEaglesPF" target="_blank" class="social-link"><img src="whatsapp.png" alt="Whatsapp"></a>
+        <a href="https://twitter.com/GoldenEaglesPF" target="_blank" class="social-link"><img src="tiktok1.png" alt="TikTok"></a>
+         </div>
+    <div class="nav-button">
+    <a href="1.html" class="btn btn-prev"> <span>&horbar;</span>Home</a>
+    <a href="We are the golden eagles.html"  class="btn btn-next">NEXT <span>&#10132</span></a>
+   </div>
+        </section>
+    <style>
+          .navbar{
+    background-color: #0f172a;
+    padding: 12px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0,0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-radius: 10px;
+
+}
+.navlogo img{
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    transition: transform 0.2s ease;
+}
+.navlogo img:hover{
+    transform: scale(1.05);
+}
+      .nav-links{
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 1.2px;
+        text-transform:uppercase ;
+        padding: 8px 14px;
+        border-radius: 6px;
+        transition: all 0.25s ease;
+      }  
+      .nav-links a:hover{
+        color: #f59e0b;
+        background-color: rgba(255,255,255, 0.08);
+        transform: scale(1.5);
+      }
+      .nav-links a.active{
+        color: #f59e0b;
+        background-color: rgba(245,158,11, 0.12);
+      }
+        body{
+            background-color:#f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #334155;
+            padding: 40px 20px;
+            line-height: 1.7;
+        }   
+        .card{
+            max-width: 720px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 26px;
+            box-shadow: 0 10px 30px rgba(0, 0,0, 0.08);
+            border-top: 5px solid #122223;
+        }
+         .title{
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+            text-align: center;
+            position: relative;
+        }
+        .title::after{
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #d97706;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+        .contact-section{
+            max-width: 720px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px 20px;
+            border-radius: 26px;
+            box-shadow: 0 10px 30px rgba(0, 0,0, 0.08);
+            border-top: 5px solid #1e3a8a;
+            text-align: center;
+        }
+      .contact-details p{
+        margin: 6px 0;
+        font-weight: 500;
+        color: #475569;
+      }
+      .social-links-container{
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+      }
+      .social-link{
+        display: inline-block;
+        width: 48px;
+        height: 48px;
+     object-fit: contain;
+       
+        transition: transform 0.2s ease;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+      }
+      .social-link:hover{
+        transform: translateY(-8px) scale(1.15);
+      }
+      .social-link img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+                filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+
+      }
+      @keyframes floatAnimation {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+       
+      }
+       .social-link{
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+        .social-link:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .social-link:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .social-link:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        .social-link:nth-child(4) {
+            animation-delay: 0.6s;
+        }   
+        .social-link:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+    </style>
+    </body>

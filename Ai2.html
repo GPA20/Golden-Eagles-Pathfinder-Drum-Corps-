@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Assistant & Metronome - Golden Eagles</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+
+    /* Top Navigation Bar */
+    .navbar { background-color: #0f172a; padding: 12px 6%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 1000; }
+    .nav-links { display: flex; gap: 16px; list-style: none; }
+    .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 600; font-size: 0.9rem; letter-spacing: 1.2px; text-transform: uppercase; padding: 8px 14px; border-radius: 6px; transition: all 0.25s ease; }
+    .nav-links a:hover, .nav-links a.active { color: #f59e0b; background-color: rgba(245, 158, 11, 0.12); }
+    .nav-logo-container img { height: 40px; width: auto; }
+
+    /* Main Grid Layout */
+    .app-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
+
+    /* Main Chat Panel */
+    .chat-panel { background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; height: 680px; }
+    .chat-panel h2 { color: #1e3a8a; font-size: 1.5rem; margin-bottom: 5px; }
+    .chat-panel p { color: #64748b; font-size: 0.9rem; margin-bottom: 15px; }
+
+    .chat-box { flex: 1; border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+    .msg { padding: 10px 14px; border-radius: 8px; max-width: 80%; font-size: 0.95rem; }
+    .msg.user { background: #1e3a8a; color: #ffffff; align-self: flex-end; }
+    .msg.bot { background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b; align-self: flex-start; }
+
+    .input-group { display: flex; gap: 10px; }
+    .input-group input { flex: 1; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; }
+    .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; }
+    .btn-primary { background: #1e3a8a; color: #ffffff; }
+    .btn-primary:hover { background: #1e40af; }
+    .btn-voice { background: #d97706; color: #ffffff; }
+    .btn-voice.listening { background: #ef4444; animation: pulse 1s infinite alternate; }
+
+    /* Sidebar Panels */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .side-card { background: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .side-card h3 { color: #1e3a8a; font-size: 1.1rem; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
+
+    /* Metronome UI */
+    .bpm-display { font-size: 2.8rem; font-weight: bold; color: #1e3a8a; text-align: center; }
+    .beat-visualizer { display: flex; justify-content: center; gap: 8px; margin: 15px 0; }
+    .beat-dot { width: 14px; height: 14px; border-radius: 50%; background: #cbd5e1; transition: background 0.1s ease; }
+    .beat-dot.active { background: #f59e0b; transform: scale(1.2); }
+    .beat-dot.accent { background: #ef4444; transform: scale(1.3); }
+
+    .control-label { font-size: 0.85rem; font-weight: 600; color: #64748b; margin-top: 10px; display: block; }
+    select, input[type="range"] { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; margin-top: 4px; }
+    .btn-metro { width: 100%; background: #10b981; color: #ffffff; font-size: 1rem; margin-top: 15px; }
+    .btn-metro.playing { background: #ef4444; }
+
+    /* Teach AI Form */
+    .teach-box input, .teach-box textarea { width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; }
+    .btn-teach { width: 100%; background: #d97706; color: #ffffff; }
+
+    @keyframes pulse { 0% { opacity: 0.7; } 100% { opacity: 1; } }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="1.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+
+    </ul>
+    <a href="1.html" class="nav-logo-container">
+      <img src="gelogo1.jpg" alt="Logo">
+    </a>
+  </nav>
+
+  <div class="app-container">
+    
+    <!-- AI Interactive Chat Panel -->
+    <main class="chat-panel">
+      <h2>🤖 Music & Web AI Assistant</h2>
+      <p>Ask about music theory, site navigation ("Take me to gallery"), or general questions!</p>
+
+      <div class="chat-box" id="chat-box">
+        <div class="msg bot">Hello! I am PattyBot. Try asking me "What is a major scale?", "Navigate to home", or teach me something new!</div>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="user-input" placeholder="Type a message or use voice..." onkeydown="if(event.key==='Enter') handleUserQuery()">
+        <button class="btn btn-voice" id="mic-btn" onclick="toggleVoiceRecognition()">🎤</button>
+        <button class="btn btn-primary" onclick="handleUserQuery()">Send</button>
+      </div>
+    </main>
+
+    <!-- Sidebar Tools: Metronome & AI Trainer -->
+    <aside class="sidebar">
+      
+      <!-- Metronome Panel -->
+      <div class="side-card">
+        <h3>⏱️ Precision Metronome</h3>
+        
+        <div class="bpm-display"><span id="bpm-val">120</span> <small style="font-size: 0.8rem;">BPM</small></div>
+        
+        <div class="beat-visualizer" id="beat-visualizer"></div>
+
+        <label class="control-label">Tempo (BPM)</label>
+        <input type="range" id="bpm-slider" min="40" max="240" value="120" oninput="updateBPM(this.value)">
+
+        <label class="control-label">Time Signature</label>
+        <select id="time-sig" onchange="updateTimeSignature()">
+          <option value="4/4" selected>4/4 (Common Time)</option>
+          <option value="3/4">3/4 (Waltz Time)</option>
+          <option value="2/4">2/4 (Marching Time)</option>
+          <option value="6/8">6/8 (Compound Time)</option>
+        </select>
+
+        <button class="btn btn-metro" id="metro-btn" onclick="toggleMetronome()">Start Metronome</button>
+      </div>
+
+      <!-- Teach AI Panel -->
+      <div class="side-card teach-box">
+        <h3>🧠 Teach the AI</h3>
+        <input type="text" id="teach-key" placeholder="Trigger Phrase (e.g. 'c major scale')">
+        <textarea id="teach-val" rows="2" placeholder="Answer (e.g. 'C Major contains C, D, E, F, G, A, B')"></textarea>
+        <button class="btn btn-teach" onclick="teachAI()">Save Knowledge</button>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    /* ===================================================
+       1. AI KNOWLEDGE BASE & NAVIGATION SYSTEM
+       =================================================== */
+    
+    // Default Knowledge Base
+    let aiKnowledgeBase = {
+      "major scale": "A major scale follows the formula: Whole, Whole, Half, Whole, Whole, Whole, Half.",
+      "tempo": "Tempo is the speed or pace of a given piece of music, measured in Beats Per Minute (BPM).",
+      "time signature": "The top number tells you how many beats are in a measure; the bottom number tells you which note gets one beat.",
+      "pathfinder": "The Pathfinder Club is a worldwide church-sponsored organization for youth.",
+      "who are you": "I am your Golden Eagles assistant! I can answer music questions, control the metronome, and navigate the site."
+    };
+
+    // Navigation Mapping
+    const siteRoutes = {
+      "home": "1.html",
+      "about": "about.html",
+      "gallery": "gallery.html",
+      "contact": "contact.html"
+    };
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+let pdfTextContent = "";
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadDefaultPDF('manual.pdf'); // Put your file path here
+});
+
+async function loadDefaultPDF(url) {
+  try {
+    const loadingTask = pdfjsLib.getDocument(url);
+    const pdf = await loadingTask.promise;
+    pdfTextContent = "";
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const text = await page.getTextContent();
+      pdfTextContent += text.items.map(item => item.str).join(" ") + " ";
+    }
+    console.log("PDF loaded successfully for AI answering!");
+  } catch (err) {
+    console.log("PDF loading error:", err);
+  }
+}
+
+    // Load custom learned knowledge from LocalStorage
+    const storedKnowledge = localStorage.getItem('aiKnowledgeBase');
+    if (storedKnowledge) {
+      aiKnowledgeBase = { ...aiKnowledgeBase, ...JSON.parse(storedKnowledge) };
+    }
+
+    function handleUserQuery() {
+      const input = document.getElementById('user-input');
+      const query = input.value.trim().toLowerCase();
+      if (!query) return;
+
+      appendMessage("user", input.value);
+      input.value = "";
+
+      // 1. Navigation Check
+      for (let key in siteRoutes) {
+        if (query.includes("go to " + key) || query.includes("take me to " + key) || query.includes("open " + key) || query.includes("navigate to " + key)) {
+          appendMessage("bot", `Navigating to ${key}...`);
+          speakText(`Navigating to ${key}`);
+          setTimeout(() => { window.location.href = siteRoutes[key]; }, 1200);
+          return;
+        }
+      }
+
+      // 2. Metronome Voice Control
+      if (query.includes("start metronome")) {
+        if (!isMetronomeRunning) toggleMetronome();
+        appendMessage("bot", "Metronome started!");
+        return;
+      }
+      if (query.includes("stop metronome")) {
+        if (isMetronomeRunning) toggleMetronome();
+        appendMessage("bot", "Metronome stopped!");
+        return;
+      }
+
+      // 3. Knowledge Base Check
+      let foundAnswer = null;
+      for (let key in aiKnowledgeBase) {
+        if (query.includes(key)) {
+          foundAnswer = aiKnowledgeBase[key];
+          break;
+        }
+      }
+if (!foundAnswer && pdfTextContent) {
+  const sentences = pdfTextContent.match(/[^.!?]+[.!?]+/g) || [pdfTextContent];
+  const keywords = query.split(' ').filter(w => w.length > 3);
+
+  sentences.forEach(sentence => {
+    keywords.forEach(word => {
+      if (sentence.toLowerCase().includes(word)) {
+        foundAnswer = sentence.trim();
+      }
+    });
+  });
+}
+
+
+      if (foundAnswer) {
+        appendMessage("bot", foundAnswer);
+        speakText(foundAnswer);
+      } else {
+        const defaultReply = "I don't know that yet! You can teach me using the 'Teach the AI' box on the right.";
+        appendMessage("bot", defaultReply);
+        speakText(defaultReply);
+      }
+    }
+
+    function teachAI() {
+      const key = document.getElementById('teach-key').value.trim().toLowerCase();
+      const val = document.getElementById('teach-val').value.trim();
+
+      if (!key || !val) {
+        alert("Please provide both a phrase and an answer!");
+        return;
+      }
+
+      aiKnowledgeBase[key] = val;
+      localStorage.setItem('aiKnowledgeBase', JSON.stringify(aiKnowledgeBase));
+      
+      alert(`Successfully learned: "${key}"`);
+      document.getElementById('teach-key').value = "";
+      document.getElementById('teach-val').value = "";
+      appendMessage("bot", `I've learned new information about "${key}"!`);
+    }
+
+    function appendMessage(sender, text) {
+      const chatBox = document.getElementById('chat-box');
+      const msg = document.createElement('div');
+      msg.className = `msg ${sender}`;
+      msg.innerText = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    /* ===================================================
+       2. SPEECH RECOGNITION & SYNTHESIS
+       =================================================== */
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition;
+    let isListening = false;
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('user-input').value = transcript;
+        toggleVoiceRecognition();
+        handleUserQuery();
+      };
+
+      recognition.onerror = () => toggleVoiceRecognition();
+    }
+
+    function toggleVoiceRecognition() {
+      const micBtn = document.getElementById('mic-btn');
+      if (!SpeechRecognition) {
+        alert("Browser speech recognition not supported. Try Google Chrome.");
+        return;
+      }
+
+      if (!isListening) {
+        recognition.start();
+        isListening = true;
+        micBtn.classList.add('listening');
+      } else {
+        recognition.stop();
+        isListening = false;
+        micBtn.classList.remove('listening');
+      }
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* ===================================================
+       3. ADVANCED WEB AUDIO METRONOME
+       =================================================== */
+    let audioCtx = null;
+    let isMetronomeRunning = false;
+    let bpm = 120;
+    let beatsPerMeasure = 4;
+    let currentBeat = 0;
+    let nextNoteTime = 0.0;
+    let timerID = null;
+
+    function renderVisualizer() {
+      const container = document.getElementById('beat-visualizer');
+      container.innerHTML = '';
+      for (let i = 0; i < beatsPerMeasure; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'beat-dot';
+        dot.id = `dot-${i}`;
+        container.appendChild(dot);
+      }
+    }
+    renderVisualizer();
+
+    function updateBPM(val) {
+      bpm = val;
+      document.getElementById('bpm-val').innerText = val;
+    }
+
+    function updateTimeSignature() {
+      const sig = document.getElementById('time-sig').value;
+      beatsPerMeasure = parseInt(sig.split('/')[0]);
+      currentBeat = 0;
+      renderVisualizer();
+    }
+
+    function scheduler() {
+      while (nextNoteTime < audioCtx.currentTime + 0.1) {
+        playClick(nextNoteTime, currentBeat);
+        nextNoteTime += 60.0 / bpm;
+        currentBeat = (currentBeat + 1) % beatsPerMeasure;
+      }
+      timerID = window.setTimeout(scheduler, 25);
+    }
+
+    function playClick(time, beat) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      const isAccent = (beat === 0);
+      osc.frequency.setValueAtTime(isAccent ? 1200 : 800, time); // Beat 1 is higher pitch
+
+      gain.gain.setValueAtTime(1, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(time);
+      osc.stop(time + 0.04);
+
+      // Flash visual dots on UI
+      setTimeout(() => {
+        document.querySelectorAll('.beat-dot').forEach(d => d.className = 'beat-dot');
+        const activeDot = document.getElementById(`dot-${beat}`);
+        if (activeDot) {
+          activeDot.className = isAccent ? 'beat-dot accent' : 'beat-dot active';
+        }
+      }, (time - audioCtx.currentTime) * 1000);
+    }
+
+    function toggleMetronome() {
+      const btn = document.getElementById('metro-btn');
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      if (!isMetronomeRunning) {
+        isMetronomeRunning = true;
+        currentBeat = 0;
+        nextNoteTime = audioCtx.currentTime + 0.05;
+        scheduler();
+        btn.innerText = "Stop Metronome";
+        btn.classList.add('playing');
+      } else {
+        isMetronomeRunning = false;
+        window.clearTimeout(timerID);
+        btn.innerText = "Start Metronome";
+        btn.classList.remove('playing');
+        document.querySelectorAll('.beat-dot').forEach(d => d.className = 'beat-dot');
+      }
+    }
+  </script>
+
+</body>
+</html>

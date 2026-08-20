@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Golden Eagles | Member Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f9f9f9",
+                        "primary-container": "#d32f2f",
+                        "on-tertiary-fixed": "#261a00",
+                        "primary-fixed-dim": "#ffb3ac",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#fff2f0",
+                        "inverse-primary": "#ffb3ac",
+                        "secondary-container": "#54a0fe",
+                        "outline-variant": "#e4beba",
+                        "tertiary-container": "#8f6a00",
+                        "tertiary-fixed": "#ffdfa0",
+                        "on-primary-fixed": "#410003",
+                        "surface-container": "#eeeeee",
+                        "tertiary": "#715300",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1a1c1c",
+                        "surface-variant": "#e2e2e2",
+                        "surface-tint": "#ba1a20",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#5b403d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#005faf",
+                        "surface-dim": "#dadada",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-low": "#f3f3f4",
+                        "surface": "#f9f9f9",
+                        "primary": "#af101a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#930010",
+                        "secondary-fixed": "#d4e3ff",
+                        "primary-fixed": "#ffdad6",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed-variant": "#004786",
+                        "tertiary-fixed-dim": "#f8bd2a",
+                        "on-background": "#1a1c1c",
+                        "on-secondary-container": "#003567",
+                        "inverse-on-surface": "#f0f1f1",
+                        "outline": "#8f6f6c",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-container": "#fff3e3",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9f9",
+                        "secondary-fixed-dim": "#a5c8ff",
+                        "on-secondary-fixed": "#001c3a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "container-margin": "20px",
+                        "stack-sm": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "label-bold": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "30px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-bold": ["14px", {"lineHeight": "20px", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hard-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0, 95, 175, 0.15);
+        }
+        .active-press:active {
+            transform: scale(0.98);
+            filter: brightness(0.9);
+        }
+        body {
+            background-color: #F5F5F5;
+            color: #1a1c1c;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-surface-dim border-b-2 border-surface-variant dark:border-outline-variant flex items-center justify-between px-container-margin py-stack-sm w-full">
+<div class="flex items-center gap-stack-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden active:scale-95 transition-transform duration-100">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-contrast portrait of a young drum corps member wearing a crisp white and blue uniform, looking focused and determined. The background is a slightly blurred rehearsal field under bright midday sun. The visual style is sharp and professional, echoing a high-performance athletic brand aesthetic with clean lines and vibrant colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhFI4pnaN53Jt6Gs8q2Ju6N1Be5oyp4h7YwTfNP4ju6sr7VpEKy51HF4JZltmWCr9cpInpBQyUiyfs1-N7onVIExK7sJ3GOY3B6KWFNm5h865JFOsiRpiVqHUcWMJNV_QfVlaVgMUuH272E2ZEfmQYuWa015xNrvW1zROBPIMTn8991_toDboIclhVsRMF9Vl6OYza8VHnGK9wUh-Jm0dvQz0R5Bai1DbtZjLXUjaHGFjknzVy_Wo7CkFF7-yE1qwyA79UZ9F79gg"/>
+</div>
+<h1 class="font-display-lg text-headline-lg-mobile font-black text-primary dark:text-primary-fixed-dim tracking-tighter">GOLDEN EAGLES PATHFINDER DRUM CORPS</h1>
+</div>
+<button class="material-symbols-outlined p-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors active:scale-95 transition-transform duration-100">
+            notifications
+        </button>
+</header>
+<main class="max-w-7xl mx-auto px-container-margin py-stack-lg mb-24">
+<!-- Hero Section -->
+<section class="mb-stack-lg">
+<div class="flex flex-col md:flex-row justify-between items-end gap-stack-md border-l-4 border-primary pl-4 py-2 mb-stack-md">
+<div>
+<span class="font-label-bold text-label-sm text-secondary uppercase tracking-widest">Member Portal</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg">Welcome back, Cadet.</h2>
+</div>
+<div class="flex gap-2">
+<span class="bg-secondary px-3 py-1 text-on-secondary font-label-bold text-label-sm rounded-lg">ON TIME</span>
+<span class="bg-primary px-3 py-1 text-on-primary font-label-bold text-label-sm rounded-lg">URGENT</span>
+</div>
+</div>
+<!-- Bento Dashboard Layout -->
+<div class="bento-grid">
+<!-- Announcement Main (Large) -->
+<div class="md:col-span-2 md:row-span-2 bg-surface-container-lowest border border-surface-variant p-stack-md hard-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start mb-stack-sm">
+<h3 class="font-headline-md text-headline-md text-primary">Corps Announcement</h3>
+<span class="material-symbols-outlined text-secondary opacity-20 group-hover:opacity-100 transition-opacity">campaign</span>
+</div>
+<p class="font-body-lg text-body-lg mb-stack-md">The regional championship schedule has been finalized. All brass sections report to the field for full ensemble at 0800 sharp tomorrow.</p>
+<div class="w-full h-48 bg-surface-variant overflow-hidden mb-stack-md">
+<img class="w-full h-full object-cover" data-alt="A wide-angle, high-dynamic-range photograph of a massive grass rehearsal field at sunset. A large drum corps is arranged in a complex geometric formation, their shadows stretching long across the green turf. The sky is a dramatic mix of deep blues and fiery oranges, creating a heroic and high-stakes atmosphere suitable for an elite organization." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzUfDi4csfkXBrhlgq1dEvLwR7XxKOu0Mj-77DVRHcN8-KXS25AWB_kMSNBZ0neAUhwz4l4IEQvl6JsPNOA1-bxerdhY-Uw700uXJQe22hNn-I4FuKGxNc_azgqq9bkPTa84O6NOGCnfsrK9XEbM-Y7BQRp2HlqUqSYsma-e5wtko4KSHOL8b6luwzs0S73Drv4Fb7U2EVXQM3aqWnTuEGFKNEDm1KmOk6cYXertW4M_CBKHl58jovhLcuJhzeWABNTZf7VXF4CzY"/>
+</div>
+<button class="w-full py-stack-sm bg-primary text-on-primary font-label-bold uppercase tracking-widest active-press transition-all">Read Full Briefing</button>
+</div>
+<!-- AI Hub Quick Access -->
+<div class="md:col-span-2 bg-secondary-container text-on-secondary-container p-stack-md hard-shadow flex items-center justify-between group cursor-pointer hover:bg-secondary transition-colors duration-300">
+<div>
+<h3 class="font-headline-md text-headline-md">AI Hub</h3>
+<p class="font-body-md text-body-md opacity-90">Analyze your show tape with EagleEye AI.</p>
+</div>
+<div class="p-4 bg-surface-container-lowest/20 rounded-full group-hover:rotate-12 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+</div>
+<!-- Gallery Highlight -->
+<div class="md:col-span-1 bg-surface-container-lowest border border-surface-variant p-stack-md hard-shadow">
+<div class="flex flex-col gap-stack-sm">
+<span class="material-symbols-outlined text-primary">collections</span>
+<h4 class="font-label-bold text-label-bold">Recent Gallery</h4>
+<div class="grid grid-cols-2 gap-2">
+<div class="aspect-square bg-surface-variant overflow-hidden">
+    <img class="w-full h-full object-cover" data-alt="Close-up detail of a polished silver trumpet reflecting a vibrant blue sky. The focus is sharp on the intricate valves and the golden eagles insignia etched into the metal. The lighting is crisp and clear, emphasizing the discipline and maintenance of high-end musical equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcUY_JrXRsYB0X6-Ryu5ya8lxGiQC54cNEleuDm2tt2hOCqzr-iU-T40QQYgFff2eqcmBaAR2ondQ0tHYy7LWFN37qKrkqeYLyCUNBPdADEBesdnkXYV73IwDNzxlbTrzBwFUFnpJfrEJnsdol6MZ7_DvhQXXrYTUgXoxWHrBvPD4v4abHtzLoK458__cUuWSElbnelFzltMBkdg7_IFYSjLXEzQZgg7bw8Bql_APy_HFk9upGwuC0MibtHOxUYOdtnfvTcQmKWow"/>
+</div>
+
+<div class="aspect-square bg-surface-variant overflow-hidden">
+    <img src="IMG-20240315-WA0001.jpg"/>
+</div>
+<div class="aspect-square bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Motion blur shot of a drumline member’s hands moving with incredible speed across a snare drum. The sticks are a streak of white against the deep blue uniform sleeve. High-contrast lighting highlights the sweat and intensity of a competitive performance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQs_63gB4r2ThUV-mO5yj52C3mbSOy8-c8ysJOAEXyHaSJSMSKhUCZRxs8JgpmHYylkFHLrraQa8vt_CqJpkTA7Qs9vWMQj92uKjfE5oWtcA1n6kCPEOajnh88RDQTKZjf7u1VttnTIF3JFdiNbJKVm2rFyg1dhiSvFX_ldbGPI18FKCCYuaLm3GdVa66M28FX-y8hNHDGj_GT6fJfP8qLafZMMiGQVBN9DI7I61F2PSHM2D2Q-ZafidiI52iautrmNhxIb72bawg"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Payments/Finance Status -->
+<div class="md:col-span-1 bg-surface-container-lowest border border-surface-variant p-stack-md hard-shadow flex flex-col justify-between">
+<div>
+<h4 class="font-label-bold text-label-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">payments</span>
+                            Finance
+                        </h4>
+<p class="text-[32px] font-black text-primary mt-2">$240.00</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Due: Oct 15</p>
+</div>
+<button class="mt-stack-md border-2 border-secondary text-secondary font-label-bold py-2 hover:bg-secondary hover:text-white transition-all active-press uppercase text-label-sm">Pay Dues</button>
+</div>
+<!-- Rehearsal Timeline (Wide) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-surface-variant p-stack-md hard-shadow">
+<h3 class="font-headline-md text-headline-md mb-stack-md border-b border-surface-variant pb-2">Upcoming Rehearsals</h3>
+<div class="flex flex-col md:flex-row gap-gutter">
+<div class="flex-1 flex gap-stack-md items-center bg-surface-container-low p-stack-sm border-l-4 border-secondary">
+<div class="flex flex-col items-center justify-center bg-white px-4 py-2 border border-surface-variant">
+<span class="text-label-sm font-label-bold uppercase text-secondary">Oct</span>
+<span class="text-headline-md font-black">12</span>
+</div>
+<div class="flex-1">
+<h5 class="font-label-bold">Full Ensemble Run-through</h5>
+<p class="text-label-sm text-on-surface-variant">Stadium Field • 09:00 - 13:00</p>
+</div>
+<span class="material-symbols-outlined text-surface-variant">chevron_right</span>
+</div>
+<div class="flex-1 flex gap-stack-md items-center bg-surface-container-low p-stack-sm border-l-4 border-primary">
+<div class="flex flex-col items-center justify-center bg-white px-4 py-2 border border-surface-variant">
+<span class="text-label-sm font-label-bold uppercase text-primary">Oct</span>
+<span class="text-headline-md font-black">14</span>
+</div>
+<div class="flex-1">
+<h5 class="font-label-bold">Visual Sectionals</h5>
+<p class="text-label-sm text-on-surface-variant">Practice Lot B • 18:00 - 21:00</p>
+</div>
+<span class="material-symbols-outlined text-surface-variant">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 h-16 bg-surface dark:bg-surface-dim border-t-2 border-surface-variant dark:border-outline-variant flex justify-around items-center px-4">
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-label-bold hover:bg-primary-fixed-dim/10 transition-all active:bg-primary-container active:text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all active:bg-primary-container active:text-on-primary-container">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm">Announce</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all active:bg-primary-container active:text-on-primary-container">
+<span class="material-symbols-outlined">collections</span>
+<span class="font-label-sm text-label-sm">Gallery</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all active:bg-primary-container active:text-on-primary-container">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm">Finance</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-primary-fixed-dim/10 transition-all active:bg-primary-container active:text-on-primary-container">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm">AI Hub</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for dashboard cards
+        document.querySelectorAll('.bento-grid > div').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

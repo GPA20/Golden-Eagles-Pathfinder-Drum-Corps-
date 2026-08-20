@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Document Assistant & Metronome</title>
+  
+  <!-- PDF.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; color: #1e293b; padding: 20px; }
+    .app-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
+    
+    /* Main Panel */
+    .main-panel { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    h2 { color: #1e3a8a; margin-bottom: 15px; font-size: 1.3rem; }
+    
+    .file-input-box { border: 2px dashed #cbd5e1; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; cursor: pointer; }
+    .file-input-box:hover { border-color: #3b82f6; background: #eff6ff; }
+    input[type="file"] { display: none; }
+    
+    .chat-box { height: 320px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; overflow-y: auto; background: #f1f5f9; margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
+    .msg { padding: 10px 14px; border-radius: 8px; max-width: 80%; font-size: 0.95rem; }
+    .msg.user { background: #1e3a8a; color: #fff; align-self: flex-end; }
+    .msg.bot { background: #fff; border: 1px solid #cbd5e1; color: #1e293b; align-self: flex-start; }
+    
+    .input-group { display: flex; gap: 10px; }
+    input[type="text"] { flex: 1; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; }
+    button { padding: 12px 18px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s ease; }
+    .btn-primary { background: #1e3a8a; color: #fff; }
+    .btn-primary:hover { background: #1e40af; }
+    .btn-voice { background: #d97706; color: #fff; }
+    .btn-voice.listening { background: #ef4444; animation: pulse 1s infinite alternate; }
+
+    /* Metronome Panel */
+    .sidebar { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
+    .metronome-box { text-align: center; }
+    .bpm-display { font-size: 2.5rem; font-weight: bold; color: #1e3a8a; margin: 10px 0; }
+    input[type="range"] { width: 100%; margin: 15px 0; }
+    .btn-metro { width: 100%; background: #10b981; color: #fff; font-size: 1rem; }
+    .btn-metro.playing { background: #ef4444; }
+
+    @keyframes pulse { 0% { opacity: 0.7; } 100% { opacity: 1; } }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  
+  <!-- Left Side: PDF Reader & Voice AI -->
+  <main class="main-panel">
+    <h2>📄 PDF Question Answering Assistant</h2>
+    
+    <div class="file-input-box" onclick="document.getElementById('pdf-file').click()">
+      <span id="file-label">Click to upload PDF Document</span>
+      <input type="file" id="pdf-file" accept="application/pdf" onchange="loadPDF(event)">
+    </div>
+
+    <div class="chat-box" id="chat-box">
+      <div class="msg bot">Upload a PDF and ask me any question about its contents!</div>
+    </div>
+
+    <div class="input-group">
+      <input type="text" id="user-input" placeholder="Type your question or click mic..." onkeydown="if(event.key==='Enter') sendQuestion()">
+      <button class="btn-voice" id="mic-btn" onclick="toggleVoiceRecognition()">🎤</button>
+      <button class="btn-primary" onclick="sendQuestion()">Send</button>
+    </div>
+  </main>
+
+  <!-- Right Side: Precise Audio Metronome -->
+  <aside class="sidebar">
+    <div class="metronome-box">
+      <h2>⏱️ Metronome</h2>
+      <div class="bpm-display"><span id="bpm-val">120</span> <small style="font-size: 0.9rem;">BPM</small></div>
+      <input type="range" id="bpm-slider" min="40" max="240" value="120" oninput="updateBPM(this.value)">
+      <button class="btn-metro" id="metro-btn" onclick="toggleMetronome()">Start Metronome</button>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+  /* ===================================================
+     1. PDF PARSING (PDF.js) & SEARCH ENGINE
+     =================================================== */
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+  
+  let pdfTextContent = "";
+
+  async function loadPDF(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    document.getElementById('file-label').innerText = `Loaded: ${file.name}`;
+    const fileReader = new FileReader();
+
+    fileReader.onload = async function() {
+      const typedarray = new Uint8Array(this.result);
+      const pdf = await pdfjsLib.getDocument(typedarray).promise;
+      pdfTextContent = "";
+
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const text = await page.getTextContent();
+        pdfTextContent += text.items.map(item => item.str).join(" ") + " ";
+      }
+
+      appendMessage("bot", `PDF loaded successfully! You can now ask questions about "${file.name}".`);
+    };
+
+    fileReader.readAsArrayBuffer(file);
+  }
+
+  function sendQuestion() {
+    const input = document.getElementById('user-input');
+    const query = input.value.trim();
+    if (!query) return;
+
+    appendMessage("user", query);
+    input.value = "";
+
+    if (!pdfTextContent) {
+      appendMessage("bot", "Please upload a PDF document first so I can find answers for you!");
+      return;
+    }
+
+    // Search document text for context
+    const answer = searchPDFContent(query);
+    appendMessage("bot", answer);
+    speakText(answer);
+  }
+
+  function searchPDFContent(query) {
+    const sentences = pdfTextContent.match(/[^.!?]+[.!?]+/g) || [pdfTextContent];
+    const keywords = query.toLowerCase().split(' ').filter(word => word.length > 3);
+    
+    let bestMatch = "";
+    let maxScore = 0;
+
+    sentences.forEach(sentence => {
+      let score = 0;
+      keywords.forEach(word => {
+        if (sentence.toLowerCase().includes(word)) score++;
+      });
+      if (score > maxScore) {
+        maxScore = score;
+        bestMatch = sentence;
+      }
+    });
+
+    if (maxScore > 0) {
+      return `Based on your document: "${bestMatch.trim()}"`;
+    } else {
+      return "I couldn't find an exact match in the document for your question. Try rephrasing your keywords!";
+    }
+  }
+
+  function appendMessage(sender, text) {
+    const chatBox = document.getElementById('chat-box');
+    const msg = document.createElement('div');
+    msg.className = `msg ${sender}`;
+    msg.innerText = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  /* ===================================================
+     2. VOICE RECOGNITION & SPEECH SYNTHESIS (Web Speech API)
+     =================================================== */
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition;
+  let isListening = false;
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      document.getElementById('user-input').value = transcript;
+      toggleVoiceRecognition();
+      sendQuestion();
+    };
+
+    recognition.onerror = () => toggleVoiceRecognition();
+  }
+
+  function toggleVoiceRecognition() {
+    const micBtn = document.getElementById('mic-btn');
+    if (!SpeechRecognition) {
+      alert("Voice Recognition is not supported on this browser (Try Google Chrome).");
+      return;
+    }
+
+    if (!isListening) {
+      recognition.start();
+      isListening = true;
+      micBtn.classList.add('listening');
+    } else {
+      recognition.stop();
+      isListening = false;
+      micBtn.classList.remove('listening');
+    }
+  }
+
+  function speakText(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Stop current audio
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(utterance);
+    }
+  }
+
+  /* ===================================================
+     3. HIGH-ACCURACY METRONOME (Web Audio API)
+     =================================================== */
+  let audioCtx = null;
+  let isMetronomeRunning = false;
+  let bpm = 120;
+  let nextNoteTime = 0.0;
+  let timerID = null;
+
+  function updateBPM(val) {
+    bpm = val;
+    document.getElementById('bpm-val').innerText = val;
+  }
+
+  function scheduler() {
+    while (nextNoteTime < audioCtx.currentTime + 0.1) {
+      playClick(nextNoteTime);
+      nextNoteTime += 60.0 / bpm;
+    }
+    timerID = window.setTimeout(scheduler, 25);
+  }
+
+  function playClick(time) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1000, time); // 1000 Hz beep tone
+
+    gain.gain.setValueAtTime(1, time);
+    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(time);
+    osc.stop(time + 0.05);
+  }
+
+  function toggleMetronome() {
+    const btn = document.getElementById('metro-btn');
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    if (!isMetronomeRunning) {
+      isMetronomeRunning = true;
+      nextNoteTime = audioCtx.currentTime + 0.05;
+      scheduler();
+      btn.innerText = "Stop Metronome";
+      btn.classList.add('playing');
+    } else {
+      isMetronomeRunning = false;
+      window.clearTimeout(timerID);
+      btn.innerText = "Start Metronome";
+      btn.classList.remove('playing');
+    }
+  }
+</script>
+
+</body>
+</html>
