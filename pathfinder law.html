@@ -1,33 +1,206 @@
 <!DOCTYPE html>
 <html>
-    <body style="background-color: royalblue;">
-        <center>
-            <div style="background-color: white;">
-            <a href ="1.html">HOME</a>
-            <a href="contact.html">CONTACT</a>
-            </div>
-        </center>
+     <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>WE ARE THE GOLDEN EAGLES</title>
+            <link rel="icon"type="image/png" href="ll.png">
+        </head>
+  
+    <body >
         
-        <center>
-        <h1 style="color: lime;"><u>PATHFINDER LAW</u></h1>
-        </center>
-        <center>
-        <div>
-            <p style="color: lime;"><b>The Pathfinder Law is for me to:</b><br>
-                Keep the Morning Watch<br>
-                Do my honest part<br>
-                Care for my body<br>
-                Keep a level eye<br>
-                Be courteous and obedient<br>
-                Walk softly in the sanctuary<br>
-                Keep a song in my heart<br>
-                Go on God's errands
+  <nav class="navbar">
+        <ul class="nav-links">
+<li><a href ="index.html" class="active">HOME</a>
+        <li><a href="about.html">ABOUT</a>
+            <li><a href="gallery.html">GALLERY</a>
+                <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+        <a href="index.html" class="navlogo"><img src="gelogo1.jpg" alt="GE logo"></a>
+</nav>
+    <body>
+       <main class="card">
+     
+        
+        <h1 class="title"><u>PATHFINDER LAW</u></h1>
+       
+        <div class="ttt">
+            <p ><b>The Pathfinder Law is for me to:</b><br>
+               &#9733; Keep the Morning Watch<br>
+              &#9733;  Do my honest part<br>
+              &#9733;  Care for my body<br>
+              &#9733;  Keep a level eye<br>
+              &#9733;  Be courteous and obedient<br>
+              &#9733;  Walk softly in the sanctuary<br>
+               &#9733; Keep a song in my heart<br>
+              &#9733;  Go on God's errands
             </p>
         </div>
-        </center>
-<center>
-        <button style="background-color: aqua;"><a href="pathfinder pledge.html">< BACK</a></button>
-        <button style="background-color:white;"><a href="pathfinder song.html">NEXT></a></button>
-    </center>
+                           <div class="nav-button">
+    <a href="pathfinder pledge.html" class="btn btn-prev"> <span>&leftarrow;</span>PREVIOUS</a>
+    <a href="pathfinder song.html"  class="btn btn-next">NEXT <span>&#10132</span></a>
+   </div>
+       </main
     </body>
+    <style>
+     .navbar{
+    background-color: #0f172a;
+    padding: 12px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0,0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-radius: 10px;
+
+}
+.navlogo img{
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    transition: transform 0.2s ease;
+}
+.navlogo img:hover{
+    transform: scale(1.05);
+}
+      .nav-links{
+        display: flex;
+        gap: 20px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 1.2px;
+        text-transform:uppercase ;
+        padding: 8px 14px;
+        border-radius: 6px;
+        transition: all 0.25s ease;
+      }  
+      .nav-links a:hover{
+        color: #f59e0b;
+        background-color: rgba(255,255,255, 0.08);
+        transform: scale(1.5);
+      }
+      .nav-links a.active{
+        color: #f59e0b;
+        background-color: rgba(245,158,11, 0.12);
+      }
+        body{
+            background-color:#f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #334155;
+            padding: 40px 20px;
+            line-height: 1.7;
+        }   
+        .card{
+            max-width: 720px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 26px;
+            box-shadow: 0 10px 30px rgba(0, 0,0, 0.08);
+            border-top: 5px solid #bc0024;
+        }
+          .welcome-text{
+            font-size: 1.05rem;
+            color: #475569;
+            margin-bottom: 20px;
+            text-align: justify;
+        }   
+      .image{
+        display:block;
+        width: 100px;
+        height: 90px;
+        margin: 0 auto;
+          border-radius: 20px;
+            border: 1px dashed #798aa0;
+            padding: 5px;
+      }
+   .image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+   }
+
+        .title{
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+            text-align: center;
+            position: relative;
+        }
+        .title::after{
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #d97706;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+        .welcome-text{
+            font-size: 1.05rem;
+            color: #475569;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .nav-button{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 36px;
+            gap: 16px;
+        }
+        .btn{
+            display: inline;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.25 ease;
+        }
+        .btn-prev{
+            background-color: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        .btn-prev:hover{
+            background-color: #e2e8f0;
+            color: #0f172a;
+            transform: translateX(-3px);
+        }
+         .btn-next{
+            background-color: #1e3a8a;
+            color: #ffffff;
+            border: 1px solid #1e3a8a;
+            box-shadow: 0 4px 12px rgba(30, 58,138, 0.25);
+        }
+        .btn-next:hover{
+            background-color: #1e40af;
+            transform: translateX(3px);
+            box-shadow: 0 6px 16px rgba(30, 58,138, 0.35);
+        }
+         .yell{
+             font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-top: 4px;
+         }
+         .ttt{
+            padding-left: 50px;
+         }
+   </style>
+
 </html>
