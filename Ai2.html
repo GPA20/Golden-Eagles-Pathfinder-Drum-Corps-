@@ -15,7 +15,30 @@
     .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 600; font-size: 0.9rem; letter-spacing: 1.2px; text-transform: uppercase; padding: 8px 14px; border-radius: 6px; transition: all 0.25s ease; }
     .nav-links a:hover, .nav-links a.active { color: #f59e0b; background-color: rgba(245, 158, 11, 0.12); }
     .nav-logo-container img { height: 40px; width: auto; }
-
+ @media (max-width:600px){
+              .navbar{
+                   flex-direction:column;
+                   padding:12px 10px;
+                   gap:10px;
+              }
+              .nav-links{
+                   display:flex;
+                   justify-content:center;
+                   align-items:center;
+                   flex-wrap:wrap;
+                   gap:12px;
+                   width:100%;
+                   padding:0;
+                   margin:0;
+              }
+              .nav-links li{
+                   margin:0;
+              }
+              .nav-links a {
+                   font-size:0.85rem;
+                   padding:6px 10px;
+              }
+         }
     /* Main Grid Layout */
     .app-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
 
